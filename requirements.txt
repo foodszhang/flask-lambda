@@ -1,2 +1,4 @@
 Flask>=0.10
 six
+git+http://git.fenda.io/open/apm-agent-python.git@master
+blinker

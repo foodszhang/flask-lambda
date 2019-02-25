@@ -35,6 +35,7 @@ except ImportError:
 
 import six
 from werkzeug.wrappers import BaseRequest, BaseResponse
+from elasticapm.contrib.flask import ElasticAPM
 
 
 __version__ = '0.0.4'
@@ -217,6 +218,9 @@ def _call(self, event, context):
 
 class FlaskLambda(Flask):
     def __call__(self, event, context):
+        if not getattr(self, 'apm'):
+            self.apm = ElasticAPM(logging=False)
+            self.apm.init_app(self)
         return _call(self, event, context)
 
 
